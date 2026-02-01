@@ -1,15 +1,10 @@
 package com.example.HospifySpringBoot.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.Id;
+import lombok.*;
 
 @Entity
 @Builder
@@ -18,12 +13,11 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class Patient {
-
+public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String gender;
-    private int age;
+    private Long patientId;
+    private Long doctorId;
+    private String date;
 }
