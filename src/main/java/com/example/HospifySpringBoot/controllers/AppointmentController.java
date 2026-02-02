@@ -1,6 +1,8 @@
 package com.example.HospifySpringBoot.controllers;
 
 import com.example.HospifySpringBoot.models.Appointment;
+import com.example.HospifySpringBoot.service.AppointmentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -10,31 +12,34 @@ import java.util.List;
 
 public class AppointmentController {
 
+    @Autowired
+    private AppointmentService appointmentService;
+
     @GetMapping
     public List<Appointment> getAllAppointments() {
         System.out.println("Fetching the appointments");
-        return null;
+        return appointmentService.getAllAppointments();
     }
 
     @PostMapping
     public Appointment createAppointment(@RequestBody Appointment appointment) {
         System.out.println("Creating appointment");
-        return appointment;
+        return appointmentService.createAppointment(appointment);
     }
 
     @GetMapping("/{id}")
     public Appointment getAppointmentById(@PathVariable Long id) {
         System.out.println("Fetching appointment by ID");
-        return null;
+        return appointmentService.getAppointmentById(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteAppointment(@PathVariable Long id) {
-        System.out.println("Deleting appointment with id: " + id);
+        appointmentService.deleteAppointment(id);
     }
 
     @PutMapping("/{id}")
-    public void updateAppointment(@PathVariable Long id) {
-        System.out.println("Updating appointment with ID: " + id);
+    public void updateAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
+        appointmentService.updateAppointment(id, appointment);;
     }
 }
