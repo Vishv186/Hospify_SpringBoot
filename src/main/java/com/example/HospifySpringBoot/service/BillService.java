@@ -18,7 +18,7 @@ public class BillService {
         }
     }
 
-    public Bill getPatientById(Long id) {
+    public Bill getBillById(Long id) {
         try {
             return null;
         } catch (Exception e) {

@@ -27,7 +27,7 @@ public class DoctorService {
         }
     }
 
-    public Doctor createPatient(Doctor doctor) {
+    public Doctor createDoctor(Doctor doctor) {
         try {
             return null;
         } catch(Exception e) {
