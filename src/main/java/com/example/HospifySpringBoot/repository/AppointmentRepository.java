@@ -1,4 +1,9 @@
 package com.example.HospifySpringBoot.repository;
 
-public interface AppointmentRepository {
+import com.example.HospifySpringBoot.models.Appointment;
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.HospifySpringBoot.models.Appointment;
+
+public interface AppointmentRepository<Appointment> extends JpaRepository<Appointment, Long> {
+
 }
