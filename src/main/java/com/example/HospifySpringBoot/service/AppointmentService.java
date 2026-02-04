@@ -1,21 +1,26 @@
 package com.example.HospifySpringBoot.service;
 
 import com.example.HospifySpringBoot.models.Appointment;
+import com.example.HospifySpringBoot.repository.AppointmentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppointmentService {
 
-    private static final Logger logger = LoggerFactory.getLogger(PatientService.class);
+    private static final Logger logger = LoggerFactory.getLogger(AppointmentService.class);
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     public List<Appointment> getAllAppointments() {
         try{
             System.out.println("into service layer");
-            return null;
+            return appointmentRepository.findAll();
         } catch(Exception e) {
             System.out.println("Error Message " + e.getMessage());
             logger.error("An error occured while fetching all Appointments: {}", e.getMessage());
@@ -25,7 +30,8 @@ public class AppointmentService {
 
     public Appointment getAppointmentById(Long id) {
         try {
-            return null;
+            Optional<Appointment> appointment = appointmentRepository.findById(id);
+            return appointment.orElse(null);
         } catch (Exception e) {
             System.out.println("Error Message " + e.getMessage());
             logger.error("An error occured while fetching Appointment with Id {} : {}", id, e.getMessage());
@@ -35,7 +41,8 @@ public class AppointmentService {
 
     public Appointment createAppointment(Appointment appointment) {
         try {
-            return null;
+            appointmentRepository.save(appointment);
+            return appointment;
         } catch(Exception e) {
             System.out.println("Error Message" + e.getMessage());
             logger.error("An error occured while creating Appointment: {}", e.getMessage());
@@ -45,7 +52,8 @@ public class AppointmentService {
 
     public void deleteAppointment(Long id) {
         try {
-
+            logger.info("Deleting appointment with id : {}", id);
+            appointmentRepository.deleteById(id);
         } catch(Exception e) {
             System.out.println("Error Message" + e.getMessage());
             logger.error("An error occured while deleting appointment with Id {} : {}", id, e.getMessage());
@@ -54,7 +62,18 @@ public class AppointmentService {
 
     public Appointment updateAppointment(Long id, Appointment appointment) {
         try {
-            return null;
+            Optional<Appointment> existingAppointment = appointmentRepository.findById(id);
+            if(existingAppointment.isPresent()){
+                Appointment a = existingAppointment.get();
+                a.setPatientId(appointment.getPatientId());
+                a.setDoctorId(appointment.getDoctorId());
+                a.setDate(appointment.getDate());
+
+                return appointmentRepository.save(a);
+            } else {
+                logger.error("Appointment with Id {} not found", id);
+                return null;
+            }
         } catch(Exception e) {
             System.out.println("Error Message" + e.getMessage());
             logger.error("An error occured while updating appointment with Id {} : {}", id, e.getMessage());
