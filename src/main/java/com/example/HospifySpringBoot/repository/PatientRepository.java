@@ -7,3 +7,6 @@ import com.example.HospifySpringBoot.models.Patient;
 public interface PatientRepository<Patient> extends JpaRepository<Patient, Long> {
 
 }
+
+
+
