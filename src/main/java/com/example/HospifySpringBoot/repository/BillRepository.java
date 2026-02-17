@@ -4,6 +4,6 @@ import com.example.HospifySpringBoot.models.Bill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.HospifySpringBoot.models.Bill;
 
-public interface BillRepository<Bill> extends JpaRepository<Bill, Long> {
+public interface BillRepository extends JpaRepository<Bill, Long> {
 
 }

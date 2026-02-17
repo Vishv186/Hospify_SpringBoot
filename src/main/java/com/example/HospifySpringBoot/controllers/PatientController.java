@@ -3,6 +3,7 @@ package com.example.HospifySpringBoot.controllers;
 import com.example.HospifySpringBoot.models.Patient;
 import com.example.HospifySpringBoot.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -16,9 +17,10 @@ public class PatientController {
     private PatientService patientService;
 
     @GetMapping
-    public List<Patient> getAllPatients() {
+    public Page<Patient> getAllPatients(@RequestParam(defaultValue = "0") int page,
+                                        @RequestParam(defaultValue = "2") int size) {
         System.out.println("Fetching the patients");
-        return patientService.getAllPatients();
+        return patientService.getAllPatients(page, size);
     }
 
     @PostMapping
